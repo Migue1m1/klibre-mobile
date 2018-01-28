@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">klibre</string>
+    <string name="hint_search">Escribe un titulo, autor, año, isbn...</string>
 </resources>

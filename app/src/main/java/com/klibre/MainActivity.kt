@@ -16,8 +16,7 @@ import com.klibre.utils.Utils
 import android.R.string.cancel
 import com.wang.avi.AVLoadingIndicatorView
 import com.klibre.R.id.searchView
-
-
+import com.klibre.services.BookService
 
 
 class MainActivity : AppCompatActivity(), View.OnClickListener, SearchView.OnQueryTextListener,
@@ -45,9 +44,13 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, SearchView.OnQue
 
     override fun onQueryTextChange(newText: String): Boolean {
         if (newText.isNotEmpty() && newText.length > 0) {
-            //selectSuggestionsService(newText);
+            val params = HashMap<String, Any>()
+            params.put("handleActivity", this)
+            params.put("searchViewAdapter", searchViewAdapter)
+
+            BookService(params).execute(newText)
         }
-        return true;
+        return true
     }
 
     override fun onSuggestionSelect(position: Int): Boolean {
@@ -80,8 +83,10 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, SearchView.OnQue
         searchView.setQueryRefinementEnabled(true)
         searchView.setOnQueryTextListener(this)
         searchView.setOnSuggestionListener(this)
+
         searchViewAdapter = SuggestionsAdapter(this, R.layout.list_search_suggestions,
                                                null, Utils.SUGGESTIONS_COLUMS, null, -1000)
+
         searchView.setSuggestionsAdapter(searchViewAdapter)
         searchView.findViewById<View>(android.support.v7.appcompat.R.id.search_plate)
                 .setBackgroundResource(R.drawable.search_view_rounded_background)

@@ -45,7 +45,7 @@ class SuggestionsAdapter : SimpleCursorAdapter {
 
         val tvSuggestion = view.findViewById<TextView>(R.id.suggestion_text)
         tvSuggestion.setText(cursor.getString(2))
-        tvSuggestion.setTypeface(font)
+        //tvSuggestion.setTypeface(font)
 
     }
 }

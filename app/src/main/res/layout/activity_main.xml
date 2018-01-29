@@ -22,5 +22,15 @@
             android:background="@color/colorPrimary">
         </android.support.v7.widget.SearchView>
     </LinearLayout>
-
+    <com.wang.avi.AVLoadingIndicatorView
+        android:id="@+id/avi_loading"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:indicatorName="BallPulseSyncIndicator"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:indicatorColor="@color/colorLightGray"
+        android:visibility="gone" />
 </android.support.constraint.ConstraintLayout>

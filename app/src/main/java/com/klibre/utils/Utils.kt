@@ -2,6 +2,10 @@ package com.klibre.utils
 
 import android.database.MatrixCursor
 import com.klibre.models.Suggestion
+import android.content.Context.INPUT_METHOD_SERVICE
+import android.app.Activity
+import android.view.inputmethod.InputMethodManager
+
 
 /**
  * Created by Miguel on 28/1/2018.
@@ -24,6 +28,15 @@ class Utils {
             }
 
             return cursor
+        }
+
+        /*** Ocultar teclado  */
+        fun hideSoftKeyBoard(activity: Activity) {
+            val imm = activity.getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
+
+            if (imm!!.isAcceptingText()) {
+                imm!!.hideSoftInputFromWindow(activity.currentFocus!!.windowToken, 0)
+            }
         }
     }
 }

@@ -1,4 +1,7 @@
 <resources>
     <string name="app_name">klibre</string>
     <string name="hint_search">Escribe un titulo, autor, año, isbn...</string>
+
+    <string name="CANNOT_CONNECT">Ups! No tienes internet...</string>
+    <string name="ERR">Algo salió mal!</string>
 </resources>

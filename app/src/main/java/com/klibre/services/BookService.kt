@@ -1,11 +1,9 @@
 package com.klibre.services
 
-import android.os.AsyncTask
 import com.android.volley.RequestQueue
 import com.android.volley.toolbox.Volley
 import com.klibre.adapters.SuggestionsAdapter
 import android.app.Activity
-import android.database.MatrixCursor
 import com.klibre.R
 import com.klibre.models.Suggestion
 import com.wang.avi.AVLoadingIndicatorView
@@ -17,8 +15,8 @@ import com.android.volley.toolbox.JsonArrayRequest
 import com.klibre.utils.Utils.Companion.jsonToCursor
 import com.klibre.utils.Utils.Companion.URL_SERVICE_DOMAIN
 import com.klibre.utils.Utils.Companion.URL_DOMAIN
-
-
+import com.klibre.singleton.ViewSnackBar
+import com.klibre.utils.Utils.Companion.hideSoftKeyBoard
 
 /**
  * Created by Miguel on 28/1/2018.
@@ -30,6 +28,7 @@ class BookService {
     private var searchViewAdapter: SuggestionsAdapter
     private var suggestions: MutableList<Suggestion>
     private lateinit var progressLoading: AVLoadingIndicatorView
+    private val viewSnackBar = ViewSnackBar.instance
 
     constructor(params: HashMap<String, Any>) : super() {
         activity = params.get("handleActivity") as Activity
@@ -72,11 +71,26 @@ class BookService {
 
                     searchViewAdapter.changeCursor(jsonToCursor(suggestions))
                 },
-                Response.ErrorListener { volleyError ->
-                    /*Toast.makeText(this@MainActivity,
-                            "Unable to fetch data: " + volleyError.message,
-                            Toast.LENGTH_SHORT).show() */})
+                Response.ErrorListener { error ->
+                    val nResponse = error.networkResponse
+                    var msg: String = activity.getResources().getString(R.string.ERR)
+
+                    if (nResponse != null) {
+                        when (nResponse.statusCode) {
+                            505 -> {
+                            }
+
+                            else -> {
+                                viewSnackBar.viewSnackBar(activity.findViewById(R.id.searchView), msg)
+                            }
+                        }
+                    }
+                    else {
+                        msg = activity.getResources().getString(R.string.CANNOT_CONNECT)
+                        hideSoftKeyBoard(activity)
+                        viewSnackBar.viewSnackBar(activity.findViewById(R.id.searchView), msg)
+                    }
+                })
         requestQueue.add(request)
     }
-
 }

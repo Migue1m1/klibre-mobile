@@ -13,9 +13,7 @@ import android.widget.EditText
 import android.widget.ImageView
 import com.klibre.adapters.SuggestionsAdapter
 import com.klibre.utils.Utils
-import android.R.string.cancel
 import com.wang.avi.AVLoadingIndicatorView
-import com.klibre.R.id.searchView
 import com.klibre.services.BookService
 
 

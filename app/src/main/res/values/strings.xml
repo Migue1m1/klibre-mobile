@@ -2,6 +2,12 @@
     <string name="app_name">klibre</string>
     <string name="hint_search">Escribe un titulo, autor, año, isbn...</string>
 
+    <string name="sub_date">fecha</string>
+    <string name="sub_description">descripción</string>
+    <string name="sub_authors">autores</string>
+    <string name="sub_isbn">isbn</string>
+    <string name="sub_publisher">editorial</string>
+
     <string name="CANNOT_CONNECT">Ups! No tienes internet...</string>
     <string name="ERR">Algo salió mal!</string>
 </resources>

@@ -6,16 +6,13 @@ package com.klibre.adapters
 
 import android.content.Context
 import android.database.Cursor
-import android.graphics.Typeface
 import android.support.v4.widget.SimpleCursorAdapter
-import android.util.Log
 import android.view.View
 
 import android.widget.ImageView
 import android.widget.TextView
 
 import com.klibre.R
-import com.klibre.utils.Utils
 import com.squareup.picasso.Picasso
 
 /**
@@ -23,16 +20,11 @@ import com.squareup.picasso.Picasso
  */
 
 class SuggestionsAdapter : SimpleCursorAdapter {
-    var font: Typeface? = null
 
     constructor (context: Context, layout: Int, c: Cursor?,
                                    from: Array<String>,
                                    to: IntArray?, flags: Int) : super(context, layout,
-                                                                          c, from, to, flags) {
-
-
-         //font = Typeface.createFromAsset(context.getAssets(), Utils.FONTPATH[0]);
-     }
+                                                                          c, from, to, flags)
 
     override fun bindView(view: View, context: Context, cursor: Cursor) {
         val imgSuggestion = view.findViewById<ImageView>(R.id.suggestion_icon)
@@ -45,7 +37,5 @@ class SuggestionsAdapter : SimpleCursorAdapter {
 
         val tvSuggestion = view.findViewById<TextView>(R.id.suggestion_text)
         tvSuggestion.setText(cursor.getString(2))
-        //tvSuggestion.setTypeface(font)
-
     }
 }

@@ -8,20 +8,22 @@ import android.support.v4.content.ContextCompat
 import android.support.v7.widget.SearchView
 import android.text.InputType
 import android.view.View
-import android.widget.AdapterView
 import android.widget.EditText
 import android.widget.ImageView
 import com.klibre.adapters.SuggestionsAdapter
+import com.klibre.services.BookDetailsService
 import com.klibre.utils.Utils
 import com.wang.avi.AVLoadingIndicatorView
 import com.klibre.services.BookService
 
 
-class MainActivity : AppCompatActivity(), View.OnClickListener, SearchView.OnQueryTextListener,
-                     SearchView.OnSuggestionListener, AdapterView.OnItemSelectedListener {
+class MainActivity : AppCompatActivity(),
+                     View.OnClickListener,
+                     SearchView.OnQueryTextListener,
+                     SearchView.OnSuggestionListener {
 
     private lateinit var searchView: SearchView
-    private lateinit var searchViewAdapter : SuggestionsAdapter
+    private lateinit var searchViewAdapter: SuggestionsAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,13 +42,14 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, SearchView.OnQue
         return true
     }
 
+    /***  Evento producido al cambiar el texto del SearchView ***/
     override fun onQueryTextChange(newText: String): Boolean {
         if (newText.isNotEmpty() && newText.length > 0) {
             val params = HashMap<String, Any>()
             params.put("handleActivity", this)
             params.put("searchViewAdapter", searchViewAdapter)
 
-            BookService(params).execute(newText)
+           BookService(params).execute(newText)
         }
         return true
     }
@@ -55,25 +58,21 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, SearchView.OnQue
         return true
     }
 
+    /***
+     * Evento producido al hacer clic en una sugerencia ***/
     override fun onSuggestionClick(position: Int): Boolean {
         val cursor = searchView.getSuggestionsAdapter().getItem(position) as Cursor
-        val suggestion = cursor.getString(2)
+        val book_id = cursor.getString(3) //Se recupera el id del libro
+        val suggestion = cursor.getString(2) //sugerencia en el campo de texto
         searchView.setQuery(suggestion, false)
         searchView.clearFocus()
 
-        //selectDetailsService(suggestion)
+        goToDetails(book_id)
 
         return true
     }
 
-    override fun onNothingSelected(p0: AdapterView<*>?) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
-
-    override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
-
+    /*** Inicializacion de GUI ***/
     private fun initGUI() {
         searchView = findViewById<SearchView>(R.id.searchView)
         searchView.setIconifiedByDefault(false)
@@ -105,16 +104,21 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, SearchView.OnQue
                 .setImageDrawable(null)
     }
 
+    /*** Servicio de detalles de un libro
+    @param book_id -> id del libro ***/
+    private fun goToDetails(book_id: String) {
+        val params = HashMap<String, Any>()
+        params.put("handleActivity", this)
+        params.put("searchViewAdapter", searchViewAdapter)
+
+        BookDetailsService(params).execute(book_id)
+    }
+
     private fun cancelTask() {
         (searchView.findViewById<EditText>(
                 android.support.v7.appcompat.R.id.search_src_text)).setText("")
         (findViewById<AVLoadingIndicatorView>(R.id.avi_loading)).hide()
-        /*if (movieService != null)
-            movieService.cancel(true)
-        if (actorService != null)
-            actorService.cancel(true)
-        if (directorService != null)
-            directorService.cancel(true)*/
+
     }
 
 }

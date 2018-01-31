@@ -11,7 +11,8 @@ import com.squareup.picasso.Picasso
 
 class ImageBindingAdapter {
     companion object {
-        @BindingAdapter("bind:coverUrl")
+        @JvmStatic
+        @BindingAdapter("coverUrl")
         fun loadImage(cover: ImageView, coverURL: String) {
             if (!coverURL.isEmpty()){
                 Picasso.with(cover.getContext())

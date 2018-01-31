@@ -12,7 +12,7 @@ import com.android.volley.Response
 import org.json.JSONException
 import com.android.volley.toolbox.JsonArrayRequest
 
-import com.klibre.utils.Utils.Companion.jsonToCursor
+import com.klibre.utils.Utils.Companion.suggestionsToCursor
 import com.klibre.utils.Utils.Companion.URL_SERVICE_DOMAIN
 import com.klibre.utils.Utils.Companion.URL_DOMAIN
 import com.klibre.singleton.ViewSnackBar
@@ -43,33 +43,37 @@ class BookService {
         val requestQueue: RequestQueue = Volley.newRequestQueue(activity.applicationContext)
 
 
-        val request = JsonArrayRequest(URL_SERVICE_DOMAIN + "?query=" + param + "&limit=10",
+        val request = JsonArrayRequest(
+                URL_SERVICE_DOMAIN + "?query="
+                        + param.replace("+", "%2B")
+                        + "&limit=10",
                 Response.Listener {
                     jsonArray ->
 
-                    Log.e("jnfdk", jsonArray.toString())
                     for (i in 0 until jsonArray.length()) {
                         try {
                             val jsonObject = jsonArray.getJSONObject(i)
 
                             val url_icon = URL_DOMAIN + jsonObject
-                                    .getString("cover").replace(" ", "%20")
+                                    .getString("cover")
+                                        .replace(" ", "%20")
+                                            .replace("+", "%2B")
                             val text = jsonObject.getString("title")
+                            val id = jsonObject.getString("id")
 
 
-
-                            val suggestion = Suggestion(url_icon, text)
+                            val suggestion = Suggestion(url_icon, text, id)
                             this.suggestions.add(suggestion)
                             Log.e("url", suggestions.get(i).url_icon)
                             Log.e("text", suggestions.get(i).text)
+                            Log.e("id", suggestions.get(i).book_id)
 
                         } catch (e: JSONException) {
-                            //mEntries.add("Error: " + e.localizedMessage)
                         }
 
                     }
 
-                    searchViewAdapter.changeCursor(jsonToCursor(suggestions))
+                    searchViewAdapter.changeCursor(suggestionsToCursor(suggestions))
                 },
                 Response.ErrorListener { error ->
                     val nResponse = error.networkResponse

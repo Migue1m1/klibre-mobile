@@ -1,6 +1,6 @@
 package com.klibre.models
 
-import  java.util.Date
+import java.io.Serializable
 import android.databinding.BaseObservable
 import android.databinding.Bindable
 
@@ -17,7 +17,7 @@ data class Book(private var _title: String,
                 private var _coverURL: String,
                 private var _publisher: String,
                 private var _description: String
-) : BaseObservable() {
+) : BaseObservable(), Serializable {
 
     var title: String
         @Bindable get() = _title

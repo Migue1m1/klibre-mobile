@@ -22,7 +22,7 @@
                 android:orientation="vertical"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
-                <LinearLayout
+                <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
@@ -35,8 +35,16 @@
                         android:gravity="center"
                         android:textSize="@dimen/text_title"
                         android:text="@{book.title}"
-                        android:textColor="@color/colorWhite"/>
-                </LinearLayout>
+                        android:textColor="@color/colorWhite"
+                        android:layout_toLeftOf="@id/iv_download_file"/>
+                    <ImageView
+                        android:id="@+id/iv_download_file"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="10dp"
+                        android:layout_alignParentRight="true"
+                        android:src="@mipmap/ic_file_download"/>
+                </RelativeLayout>
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

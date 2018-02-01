@@ -16,7 +16,8 @@ data class Book(private var _title: String,
                 private var _isbn: String,
                 private var _coverURL: String,
                 private var _publisher: String,
-                private var _description: String
+                private var _description: String,
+                private var _downloadLink: String
 ) : BaseObservable(), Serializable {
 
     var title: String
@@ -60,5 +61,10 @@ data class Book(private var _title: String,
         set(value) {
             _description = value
             notifyPropertyChanged(BR.description)
+        }
+    var downloadLink: String
+        get() = _downloadLink
+        set(value) {
+            _downloadLink = value
         }
 }

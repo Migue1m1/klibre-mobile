@@ -91,8 +91,6 @@ class MainActivity : AppCompatActivity(),
                 .setTextColor(getResources().getColor(R.color.colorPrimary))
         (searchView.findViewById<EditText>(android.support.v7.appcompat.R.id.search_src_text))
                 .setHintTextColor(getResources().getColor(R.color.colorHint))
-        /*(searchView.findViewById<EditText>(android.support.v7.appcompat.R.id.search_src_text))
-                .setTypeface(font);*/
         (searchView.findViewById<EditText>(android.support.v7.appcompat.R.id.search_src_text))
                 .setInputType(InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS);
         (searchView.findViewById<ImageView>(android.support.v7.appcompat.R.id.search_close_btn))

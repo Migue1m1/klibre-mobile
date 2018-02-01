@@ -58,12 +58,19 @@ class Utils {
                     if (jsonObject.has("isbn")) jsonObject.getString("isbn") else "N/A",
                     if (jsonObject.has("cover"))
                         URL_DOMAIN + jsonObject
-                                .getString("cover").replace(" ", "%20")
+                                .getString("cover")
+                                    .replace(" ", "%20")
                          else "N/A",
                     if (jsonObject.has("publisher"))
                         jsonObject.getString("publisher") else "N/A",
                     if (jsonObject.has("description"))
-                        jsonObject.getString("description") else "N/A"
+                        jsonObject.getString("description") else "N/A",
+                    if (jsonObject.has("donwloadLink"))//en el webservice debe ser download
+                        URL_DOMAIN + jsonObject
+                                .getString("donwloadLink")
+                                    .replace(" ", "%20")
+                                        .replace("+", "%2B")
+                    else "N/A"
             )
         }
 

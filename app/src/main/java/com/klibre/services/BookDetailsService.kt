@@ -60,7 +60,7 @@ class BookDetailsService {
                 },
                 Response.ErrorListener {
                     error ->
-                    /*val nResponse = error.networkResponse
+                    val nResponse = error.networkResponse
                     var msg: String = activity.getResources().getString(R.string.ERR)
 
                     if (nResponse != null) {
@@ -77,7 +77,7 @@ class BookDetailsService {
                         msg = activity.getResources().getString(R.string.CANNOT_CONNECT)
                         Utils.hideSoftKeyBoard(activity)
                         viewSnackBar.viewSnackBar(activity.findViewById(R.id.searchView), msg)
-                    }*/
+                    }
                 })
 
 

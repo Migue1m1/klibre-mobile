@@ -51,6 +51,7 @@ class Utils {
 
         fun jsonToBook(jsonObject: JSONObject) : Book {
             return Book(
+                    jsonObject.getString("id"),
                     jsonObject.getString("title"),
                     if (jsonObject.has("authors"))
                         jsonObject.getString("authors") else "N/A",

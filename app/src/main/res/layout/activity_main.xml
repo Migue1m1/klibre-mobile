@@ -8,6 +8,12 @@
     tools:context="com.klibre.MainActivity"
     android:background="@color/colorPrimary">
 
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recycler"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingTop="50dp"/>
+
     <LinearLayout
         android:id="@+id/ll_search"
         android:layout_width="match_parent"

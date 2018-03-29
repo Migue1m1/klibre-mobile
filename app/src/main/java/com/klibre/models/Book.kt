@@ -10,7 +10,8 @@ import com.klibre.BR
  * Created by Miguel on 28/1/2018.
  */
 
-data class Book(private var _title: String,
+data class Book(private var _id: String,
+        private var _title: String,
                 private var _authors: String,
                 private var _date: String,
                 private var _isbn: String,
@@ -31,6 +32,12 @@ data class Book(private var _title: String,
         set(value) {
             _authors = value
             notifyPropertyChanged(BR.authors)
+        }
+    var id: String
+        @Bindable get() = _id
+        set(value) {
+            _id = value
+            notifyPropertyChanged(BR.id)
         }
     var date: String
         @Bindable get() = _date

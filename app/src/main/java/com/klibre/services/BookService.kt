@@ -11,6 +11,7 @@ import android.util.Log
 import com.android.volley.Response
 import org.json.JSONException
 import com.android.volley.toolbox.JsonArrayRequest
+import com.klibre.adapters.BookAdapter
 
 import com.klibre.utils.Utils.Companion.suggestionsToCursor
 import com.klibre.utils.Utils.Companion.URL_SERVICE_DOMAIN
@@ -74,6 +75,7 @@ class BookService {
                     }
 
                     searchViewAdapter.changeCursor(suggestionsToCursor(suggestions))
+
                 },
                 Response.ErrorListener { error ->
                     val nResponse = error.networkResponse
